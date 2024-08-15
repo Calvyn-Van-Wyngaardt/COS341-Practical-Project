@@ -16,19 +16,21 @@ jobs:
   run-build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
       - name: Compile files
         run: |
-          cd ../../src
+          cd src
           echo "Compiling files..."
 
       - name: Link files
         run: |
-          cd ../bin/
+          cd bin
           echo "Linking files..."
 
       - name: Run 
         run: |
-          cd ../
-          echo "Running output..."
+          echo "Executing main file =>"
         
       
