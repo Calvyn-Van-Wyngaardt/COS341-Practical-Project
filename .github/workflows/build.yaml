@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Compile files
         run: |
-          cd src
+          cd ../../src
           echo "Compiling files..."
 
       - name: Link files
@@ -30,6 +30,5 @@ jobs:
         run: |
           cd ../
           echo "Running output..."
-          ./main
         
       
