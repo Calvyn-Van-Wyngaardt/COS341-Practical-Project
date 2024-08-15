@@ -9,7 +9,8 @@
 ## Description:
 #### Repository containing the 2024 Project for Compiler Construction (COS341)
 [![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/Calvyn-Van-Wyngaardt/COS341-Practical-Project)
-
+[![build](https://github.com/Calvyn-Van-Wyngaardt/COS341-Practical-Project/actions/workflows/build.yaml/badge.svg)](https://github.com/Calvyn-Van-Wyngaardt/COS341-Practical-Project/actions/workflows/build.yaml)
+[![lint](https://github.com/Calvyn-Van-Wyngaardt/COS341-Practical-Project/actions/workflows/lint.yaml/badge.svg)](https://github.com/Calvyn-Van-Wyngaardt/COS341-Practical-Project/actions/workflows/lint.yaml)
 ## Cloning & running locally:
 ### Installation:
 #### First clone the repo:
