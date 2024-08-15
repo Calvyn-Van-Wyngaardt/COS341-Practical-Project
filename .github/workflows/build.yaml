@@ -1,0 +1,35 @@
+name: build
+
+on: 
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+jobs:
+  pre-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Start Build
+        run: |
+          echo "Starting build process for ${{ github.repository }}"
+  run-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compile files
+        run: |
+          cd src
+          echo "Compiling files..."
+
+      - name: Link files
+        run: |
+          cd ../bin/
+          echo "Linking files..."
+
+      - name: Run 
+        run: |
+          cd ../
+          echo "Running output..."
+          ./main
+        
+      
