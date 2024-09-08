@@ -1,5 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hellooo :)");
+        String input = "main\n\t\tbegin\t skip\t\nend\t\n";
+        Lexer lexer = new Lexer(input);
+        System.out.println(lexer);
+
     }
 }
