@@ -1,0 +1,22 @@
+main
+text V_name,
+
+
+            text V_name2,text V_name3,begin
+
+
+
+
+print               V_name
+
+
+end
+
+
+void F_printName(V_name,V_name2,V_name3) 
+{ 
+    num V_numNames, num V_currName, text V_newName,
+    begin 
+        print V_newName 
+    end
+} end
