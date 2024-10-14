@@ -4,15 +4,16 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        String fileToProcess = args[0];
         File inputDir = new File("../input");
         File inputFiles[] = inputDir.listFiles();
         ArrayList<String[]> inputs = new ArrayList<>();
 
-        for (int i = 0; i < inputFiles.length; i++) {
-            inputs.add(readFile(inputFiles[i]));
+        for (File inputFile : inputFiles) {
+            inputs.add(readFile(inputFile));
         }
 
-        Lexer lexer = new Lexer(inputs.get(1));
+        Lexer lexer = new Lexer(inputs.get(Integer.parseInt(fileToProcess)));
         System.out.println(lexer);
     }
 
