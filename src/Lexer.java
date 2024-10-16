@@ -30,13 +30,13 @@ public class Lexer {
     private static Document xmlDocument;
     private static Element rootElement;
 
-    public Lexer(String[] input) {
+    public Lexer(String[] input) throws LexicalException {
         this.tokenCount = 0;
         this.tokens = tokenizeInput(input);
         createXMLfile();
     }
 
-    private ArrayList<Token> tokenizeInput(String[] input) {
+    private ArrayList<Token> tokenizeInput(String[] input) throws LexicalException {
         ArrayList<Token> inputTokens = new ArrayList<>();
 
         for (int i = 0; i < input.length; i++) {
@@ -61,18 +61,15 @@ public class Lexer {
                                     tokenClass = "user_input";
                                     j++;
                                 } else {
-                                    System.out.println(String.format("ERROR: Character '<' should be followed user input for the variable name"));
-                                    return null;
+                                    throw new LexicalException(String.format("ERROR: Character '<' should be followed user input for the variable name"));
                                 }       
                             } else {
-                                System.out.println(String.format("ERROR: Character '<' should be followed user input for the variable name"));
-                                return null;
+                                throw new LexicalException(String.format("ERROR: Character '<' should be followed user input for the variable name"));
                             }
                         } else if (tokenStrings[j].contains("\"")) {
                             int count = tokenStrings[j].length() - tokenStrings[j].replace("\"", "").length();
                             if (count != 2) {
-                                System.out.println(String.format("ERROR: %s not properly closed with appropriate \"\" symbols", tokenStrings[j]));
-                                return null;
+                                throw new LexicalException(String.format("ERROR: %s not properly closed with appropriate \"\" symbols", tokenStrings[j]));
                             }
                             tokenClass = "string_token";
                         } else if (tokenStrings[j].matches(TOKEN_V)) {
@@ -89,8 +86,7 @@ public class Lexer {
                             tokenClass = "operator";
                         }
                         else {
-                            System.out.println(String.format("ERROR: \"%s\" not found in grammar", tokenStrings[j]));
-                            return null;
+                            throw new LexicalException(String.format("ERROR: \"%s\" not a valid token for specified grammar", tokenStrings[j]));
                         }
 
                         inputTokens.add(new Token(tokenClass, tokenValue, ++this.tokenCount));
@@ -102,8 +98,7 @@ public class Lexer {
         }
 
          if (!inputTokens.get(0).getValue().equals("main")) {
-            System.out.println("Input does not start with \"main\" as required by the grammar.");
-            return null;
+            throw new LexicalException("Input does not start with \"main\" as required by the grammar.");
         }
 
         return inputTokens;
@@ -116,12 +111,12 @@ public class Lexer {
                 addTokenToXML(t);
             }
             writeXML(OUTPUT_FILE_PATH);
-
+            
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             return false;
         }
-
+        
         return true;
     }
 

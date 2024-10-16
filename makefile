@@ -4,10 +4,10 @@ SRC_DIR = src
 MAIN_CLASS = Main
 
 make:
-    $(JAVAC) $(SRC_DIR)/*.java
+	$(JAVAC) $(SRC_DIR)/*.java
 
 run:
-    $(JAVA) $(SRC_DIR)/$(MAIN_CLASS) $(ARGS)
+	$(JAVA) -cp $(SRC_DIR) $(MAIN_CLASS) $(FILE)
 
 clean:
-    rm $(SRC_DIR)/*.class
+	rm $(SRC_DIR)/*.class

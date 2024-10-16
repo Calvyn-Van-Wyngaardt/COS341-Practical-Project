@@ -5,32 +5,34 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         String fileToProcess = args[0];
-        File inputDir = new File("../input");
-        File inputFiles[] = inputDir.listFiles();
-        ArrayList<String[]> inputs = new ArrayList<>();
+        File inputDir = new File("input");                  // Lexer setup to run with makefile, 
+        File inputFiles[] = inputDir.listFiles();                    // otherwise change "input" to "../input"
+        ArrayList<String[]> inputs = new ArrayList<>();              // when compiling manually.
 
         for (File inputFile : inputFiles) {
             inputs.add(readFile(inputFile));
         }
-
-        Lexer lexer = new Lexer(inputs.get(Integer.parseInt(fileToProcess)));
-        System.out.println(lexer);
+        try {
+            Lexer lexer = new Lexer(inputs.get(Integer.parseInt(fileToProcess)));
+            System.out.println(lexer);
+            
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private static String[] readFile(File inputFile) {
         try {
             ArrayList<String> lines = new ArrayList<>();
-            Scanner scan = new Scanner(inputFile);
-            while (scan.hasNextLine()) {
-                lines.add(scan.nextLine());
-            }        
-
-            String output[] = new String[lines.size()];
-            for (int i = 0; i < lines.size(); i++) {
-                output[i] = lines.get(i);
+            String[] output;
+            try (Scanner scan = new Scanner(inputFile)) {
+                while (scan.hasNextLine()) {
+                    lines.add(scan.nextLine());
+                }   output = new String[lines.size()];
+                for (int i = 0; i < lines.size(); i++) {
+                    output[i] = lines.get(i);
+                }
             }
-
-            scan.close();
             return output;
 
         } catch (Exception e) {
