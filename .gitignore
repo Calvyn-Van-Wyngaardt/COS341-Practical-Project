@@ -1,3 +1,4 @@
 src/*.class
 src/lexedTokens.xml
 lexedTokens.xml
+docs/SLR_Table.csv

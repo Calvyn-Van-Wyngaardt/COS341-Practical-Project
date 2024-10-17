@@ -14,10 +14,17 @@ public class Main {
         }
         try {
             Lexer lexer = new Lexer(inputs.get(Integer.parseInt(fileToProcess)));
-            System.out.println(lexer);
-            
+            // System.out.println(lexer);
+            Parser parser = new Parser("docs/SLR_Table.csv");
+
+            // Print results (for demonstration)
+            System.out.println("Action Map:");
+            Parser.printFormattedTable(0);
+            System.out.println("\nGoto Map:");
+            Parser.printFormattedTable(1);
         } catch (Exception e) {
             System.err.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
