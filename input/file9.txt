@@ -1,7 +1,0 @@
-main
-num V_1stNumber ,
-begin
-V_1stNumber < input ;
-V_result = add( V_1stNumber , 10 ) ;
-print V_result ;
-end

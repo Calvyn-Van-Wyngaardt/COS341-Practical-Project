@@ -1,9 +1,0 @@
-main
-num V_counter ,
-text V_greeting ,
-begin
-V_counter < input ;
-V_greeting = "Welcome" ;
-print V_greeting ;
-V_counter = add( V_counter , 1 ) ;
-end

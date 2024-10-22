@@ -1,2 +1,0 @@
-main num V_thisNum,      begin 
-skip         end        

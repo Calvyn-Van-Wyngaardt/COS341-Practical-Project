@@ -1,0 +1,76 @@
+main
+    num V_x, text V_y, num V_z, text V_a, num V_b, text V_c, num V_d, num V_e,
+    begin
+        skip;
+        V_x = 1;
+        print V_x;
+        V_y < input;
+        print V_y;
+        V_a = "Hello";
+        V_b = add(V_x, 2);
+        V_z = F_compute(V_b, V_x, V_d);
+        V_d = sqrt(V_b);
+        V_e = add(mul(V_x, 2), sub(V_z, V_b));
+        if and(eq(V_z, 5), grt(V_b, V_x)) then
+            begin
+                V_c = "Met";
+                print V_c;
+            end
+        else
+            begin
+                V_c = "Not";
+                print V_c;
+            end;
+        if not(eq(V_z, 5)) then
+            begin
+                V_c = "Notfive";
+                print V_c;
+            end
+        else
+            begin
+                V_c = "Isfive";
+                print V_c;
+            end;
+        V_d = div(V_b, V_x);
+        V_e = add(V_e, V_d);
+        return V_e;
+        halt;
+    end
+
+num F_compute(V_p1, V_p2, V_p3)
+{
+    num V_l1, num V_l2, num V_l3,
+    begin
+        V_l1 = mul(V_p1, V_p2);
+        V_l2 = add(V_l1, V_p3);
+        print V_l2;
+        V_l3 < input;
+        return V_l2;
+    end
+}
+end
+
+void F_update(V_p1, V_p2, V_p3)
+{
+    num V_l1, text V_l2, num V_l3,
+    begin
+        V_l1 = 0;
+        V_l2 = "Updating";
+        print V_l2;
+        V_x = add(V_p1, V_l1);
+        V_y = V_l2;
+    end
+}
+num F_sub(V_s1, V_s2, V_s3)
+    {
+        num V_sx, num V_sy, num V_sz,
+        begin
+            V_sx = sub(V_s1, V_s2);
+            V_sy = mul(V_sx, V_s3);
+            print V_sy;
+            return V_sy;
+        end
+    }
+    end
+end
+$
