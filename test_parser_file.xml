@@ -1,0 +1,442 @@
+<SYNTREE>
+  <ROOT>
+    <UNID>1</UNID>
+    <NONTERMINAL>program</NONTERMINAL>
+  </ROOT>
+
+  <INNERNODES>
+    <INNERNODE>
+      <PARENT>1</PARENT>
+      <UNID>2</UNID>
+      <NONTERMINAL>main</NONTERMINAL>
+    </INNERNODE>
+
+    <INNERNODE>
+      <PARENT>2</PARENT>
+      <UNID>3</UNID>
+      <NONTERMINAL>declaration</NONTERMINAL>
+    </INNERNODE>
+
+    <INNERNODE>
+      <PARENT>3</PARENT>
+      <UNID>4</UNID>
+      <NONTERMINAL>function</NONTERMINAL>
+    </INNERNODE>
+
+    <INNERNODE>
+      <PARENT>3</PARENT>
+      <UNID>5</UNID>
+      <NONTERMINAL>body</NONTERMINAL>
+    </INNERNODE>
+
+    <INNERNODE>
+      <PARENT>5</PARENT>
+      <UNID>6</UNID>
+      <NONTERMINAL>statements</NONTERMINAL>
+    </INNERNODE>
+
+    <INNERNODE>
+      <PARENT>4</PARENT>
+      <UNID>7</UNID>
+      <NONTERMINAL>function_definition</NONTERMINAL>
+    </INNERNODE>
+
+    <INNERNODE>
+      <PARENT>7</PARENT>
+      <UNID>8</UNID>
+      <NONTERMINAL>parameters</NONTERMINAL>
+    </INNERNODE>
+  </INNERNODES>
+
+  <LEAFNODES>
+    <!-- LEAF for 'main' -->
+    <LEAF>
+      <PARENT>2</PARENT>
+      <UNID>9</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>main</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'text' -->
+    <LEAF>
+      <PARENT>3</PARENT>
+      <UNID>10</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>text</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_name' -->
+    <LEAF>
+      <PARENT>3</PARENT>
+      <UNID>11</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_name</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for ',' -->
+    <LEAF>
+      <PARENT>3</PARENT>
+      <UNID>12</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>,</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'text' -->
+    <LEAF>
+      <PARENT>3</PARENT>
+      <UNID>13</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>text</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_name2' -->
+    <LEAF>
+      <PARENT>3</PARENT>
+      <UNID>14</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_name2</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for ',' -->
+    <LEAF>
+      <PARENT>3</PARENT>
+      <UNID>15</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>,</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'text' -->
+    <LEAF>
+      <PARENT>3</PARENT>
+      <UNID>16</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>text</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_name3' -->
+    <LEAF>
+      <PARENT>3</PARENT>
+      <UNID>17</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_name3</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'begin' -->
+    <LEAF>
+      <PARENT>5</PARENT>
+      <UNID>18</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>begin</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'print' -->
+    <LEAF>
+      <PARENT>6</PARENT>
+      <UNID>19</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>print</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_name' -->
+    <LEAF>
+      <PARENT>6</PARENT>
+      <UNID>20</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_name</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for ';' -->
+    <LEAF>
+      <PARENT>6</PARENT>
+      <UNID>21</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>;</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'end' -->
+    <LEAF>
+      <PARENT>5</PARENT>
+      <UNID>22</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>end</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for '}' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>23</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>}</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'void' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>24</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>void</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'F_printname' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>25</UNID>
+      <TERMINAL>
+        <CLASS>function_name</CLASS>
+        <WORD>F_printname</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for '(' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>26</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>(</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_name' -->
+    <LEAF>
+      <PARENT>8</PARENT>
+      <UNID>27</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_name</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for ',' -->
+    <LEAF>
+      <PARENT>8</PARENT>
+      <UNID>28</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>,</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_name2' -->
+    <LEAF>
+      <PARENT>8</PARENT>
+      <UNID>29</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_name2</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for ',' -->
+    <LEAF>
+      <PARENT>8</PARENT>
+      <UNID>30</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>,</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_name3' -->
+    <LEAF>
+      <PARENT>8</PARENT>
+      <UNID>31</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_name3</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for ')' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>32</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>)</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for '{' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>33</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>{</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'num' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>34</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>num</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_numnames' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>35</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_numnames</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for ',' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>36</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>,</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'num' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>37</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>num</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_currname' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>38</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_currname</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for ',' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>39</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>,</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'text' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>40</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>text</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_newname' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>41</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_newname</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'begin' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>42</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>begin</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'print' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>43</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>print</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'V_newname' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>44</UNID>
+      <TERMINAL>
+        <CLASS>variable</CLASS>
+        <WORD>V_newname</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for ';' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>45</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>;</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for 'end' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>46</UNID>
+      <TERMINAL>
+        <CLASS>reserved_keyword</CLASS>
+        <WORD>end</WORD>
+      </TERMINAL>
+    </LEAF>
+
+    <!-- LEAF for '}' -->
+    <LEAF>
+      <PARENT>4</PARENT>
+      <UNID>47</UNID>
+      <TERMINAL>
+        <CLASS>operator</CLASS>
+        <WORD>}</WORD>
+      </TERMINAL>
+    </LEAF>
+  </LEAFNODES>
+</SYNTREE>

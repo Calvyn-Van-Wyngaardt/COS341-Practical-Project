@@ -46,7 +46,7 @@ public class Parser {
     }
     
     public static void createMaps() {
-        String[] headers = data[2]; // Row 1, the headers
+        String[] headers = data[2]; // Row 2, the headers
         String[] terminalsAndNonTerminals = Arrays.copyOfRange(data[2], 0, 72); // Row 3, columns 2-71 (non-terminals and terminals)
         int gotoStartIndex = 38; // Index where GOTO columns start
     

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String fileToProcess = args[0];
+        String fileToProcess = "1";
         File inputDir = new File("input");                  // Lexer setup to run with makefile, 
         File inputFiles[] = inputDir.listFiles();                    // otherwise change "input" to "../input"
         ArrayList<String[]> inputs = new ArrayList<>();              // when compiling manually.
@@ -14,14 +14,19 @@ public class Main {
         }
         try {
             Lexer lexer = new Lexer(inputs.get(Integer.parseInt(fileToProcess)));
-            // System.out.println(lexer);
-            Parser parser = new Parser("docs/SLR_Table.csv");
+            System.out.println(lexer);
+            // Parser parser = new Parser("docs/SLR_Table.csv");
 
             // Print results (for demonstration)
-            System.out.println("Action Map:");
-            Parser.printFormattedTable(0);
-            System.out.println("\nGoto Map:");
-            Parser.printFormattedTable(1);
+            // System.out.println("Action Map:");
+            // Parser.printFormattedTable(0);
+            // System.out.println("\nGoto Map:");
+            // Parser.printFormattedTable(1);
+
+            ScopeAnalyzer analyzer = new ScopeAnalyzer();
+            analyzer.initTreeWithScoping();
+            System.out.println(analyzer);
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();

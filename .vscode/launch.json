@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "COS341-Practical-Project_e831d34f",
+            "console": "integratedTerminal",
+            "args": ["1"] 
+        }
+    ]
+}

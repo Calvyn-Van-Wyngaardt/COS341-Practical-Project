@@ -1,0 +1,13 @@
+main
+num V_age ,
+begin
+V_age < input ;
+if grt( V_age , 17 ) then
+  begin
+  print "Adult" ;
+  end
+else
+  begin
+  print "Minor" ;
+  end;
+end

@@ -2,3 +2,9 @@ src/*.class
 src/lexedTokens.xml
 lexedTokens.xml
 docs/SLR_Table.csv
+input/syntax_tree.xml
+input/test_parser_file.xml
+input/test_tree.xml
+input/syntax_tree.xml
+input/test_parser_file.xml
+input/test_tree.xml

@@ -20,12 +20,11 @@ public class Lexer {
     private static final Set<String> RESERVED_KEYWORDS = new HashSet<>(
       Arrays.asList("main", "begin", "end", "skip", "halt", "print", "if",
                     "then", "else", "not", "sqrt", "or", "and", "eq", "grt",
-                    "add", "sub", "mul", "div", "void", "num", "text", "return"));
+                    "add", "sub", "mul", "div", "void", "num", "text", "return", "skip"));
     private static final Set<String> OPERATORS = new HashSet<>(
       Arrays.asList("=", "+", "-", "*", "/", "(", ")", ",", ";", "{", "}"));
     
-    // private static final String INPUT_FILE_PATH = "lex1_simple.txt";
-    private static final String OUTPUT_FILE_PATH = "docs/lexedTokens.xml";
+    private static final String OUTPUT_FILE_PATH = "output/lexedTokens.xml";
 
     private static Document xmlDocument;
     private static Element rootElement;
@@ -54,7 +53,19 @@ public class Lexer {
                         String tokenValue = tokenStrings[j];
                         String tokenClass;
 
-                        if (tokenStrings[j].contains("<")) {
+                        System.out.println("PROCESSING: " + tokenStrings[j]);
+                        if (tokenStrings[j].contains(";")) {
+                            String[] newTokens = tokenStrings[j].split("(?<=;)|(?=;)");
+                            for (int k = 0; k < newTokens.length-1; k++) {
+                                tokenValue = newTokens[k];
+                                tokenClass = getClass(newTokens[k]);
+                                inputTokens.add(new Token(tokenClass, tokenValue, ++this.tokenCount));
+                            }
+
+                            tokenValue = ";";
+                            tokenClass = "operator";
+                        }
+                        else if (tokenStrings[j].contains("<")) {
                             if (j+1 < tokenStrings.length) {
                                 if (tokenStrings[j+1].contains("input")) {
                                     tokenValue = "< input";
@@ -102,6 +113,34 @@ public class Lexer {
         }
 
         return inputTokens;
+    }
+
+    private String getClass(String input) throws LexicalException {
+        String tokenClass = "";
+        if (input.contains("\"")) {
+            int count = input.length() - input.replace("\"", "").length();
+            if (count != 2) {
+                throw new LexicalException(String.format("ERROR: %s not properly closed with appropriate \"\" symbols", input));
+            }
+            tokenClass = "string_token";
+        } else if (input.matches(TOKEN_V)) {
+            tokenClass = "variable";
+        } else if (input.matches(TOKEN_F)) {
+            tokenClass = "function";
+        } else if (input.matches(TOKEN_T)) {
+            tokenClass = "string_token";
+        } else if (input.matches(TOKEN_N)) {
+            tokenClass = "number_token";
+        } else if (RESERVED_KEYWORDS.contains(input)) {
+            tokenClass = "reserved_keyword";
+        } else if (OPERATORS.contains(input)) {
+            tokenClass = "operator";
+        }
+        else {
+            throw new LexicalException(String.format("ERROR: \"%s\" not a valid token for specified grammar", input));
+        }
+
+        return tokenClass;
     }
 
     private boolean createXMLfile() {
