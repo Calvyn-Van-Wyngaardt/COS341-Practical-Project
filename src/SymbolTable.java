@@ -10,8 +10,8 @@ public class SymbolTable {
         scopeNumber++;
     }
 
-    public boolean addSymbol(String name, String value, String type) {
-        return symbolTable.put(id++, new TableEntry(name, value, type)) != null;
+    public TableEntry addSymbol(String name, String value, String type) {
+        return symbolTable.put(id++, new TableEntry(name, value, type));
     }
 
     public String lookup(String name) {
@@ -25,8 +25,14 @@ public class SymbolTable {
 
     @Override
     public String toString() {
-        String out = "";
+        String out = String.format("=====SYMBOL TABLE=====\n");
         
+        for (TableEntry t : symbolTable.values()) {
+            out += t.toString() + "\n";
+        }
+        out += "====== END ======\n";
+
+        return out;
     }
 }
 
@@ -51,5 +57,10 @@ class TableEntry {
 
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("\t%s\t%s\t%s", name, type, value);
     }
 }

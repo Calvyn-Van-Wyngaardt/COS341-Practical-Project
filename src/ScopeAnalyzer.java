@@ -8,8 +8,6 @@ public class ScopeAnalyzer {
     private static Set<String> processedNodes = new HashSet<>();
     private static String currentScopeParent = null;
     Set<String> recursionStack = new HashSet<>();
-    private Stack<SymbolTable> scope;
-    private static Integer scopeNumber = 0;
 
     private static final String TOKEN_V = "V_[a-z][a-z0-9]*$";
     private static final String TOKEN_F = "F_[a-z][a-z0-9]*$";
@@ -23,45 +21,7 @@ public class ScopeAnalyzer {
       Arrays.asList("=", "+", "-", "*", "/", "(", ")", ",", ";", "{", "}"));
     
     public ScopeAnalyzer() {
-        this.scope = new Stack<>();
-    }
 
-    public void addSymbolTable(SymbolTable table) {
-        scope.add(table);
-    }
-
-    public Stack<SymbolTable> getSymbolTables() {
-        return scope;
-    }
-
-    //When entering a new scope
-    public void addScope() {
-        scope.add(new SymbolTable());
-    }
-
-    public void removeScope() {
-        scope.pop();
-    }
-
-    public boolean addSymbol(String name, String value, String type) {
-        return scope.peek().addSymbol(name, value, type);
-    }
-
-    public boolean findScope(String varName) {
-        //Go through the stack, starting from the top
-        Stack<SymbolTable> tempStack = new Stack<>();
-        tempStack.addAll(scope);
-
-        for (int i = tempStack.size(); i > 0; i--) {
-            SymbolTable currTable = tempStack.pop();
-            String found = currTable.lookup(varName);
-            //Found a variable with that name...
-            if (found.equals(varName)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public void initTreeWithScoping() {
@@ -72,7 +32,7 @@ public class ScopeAnalyzer {
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
     
-            // Initialize Scope Manager
+            // Initialize Scope Manager - this will take care of scope stuff
             ScopeChecker sc = new ScopeChecker();
     
             // Process ROOT
@@ -93,18 +53,14 @@ public class ScopeAnalyzer {
             for (int i = 0; i < leafNodes.getLength(); i++) {
                 processLeafNodeWithScoping((Element) leafNodes.item(i), sc);
             }
+
+            //Print global SymbolTable
+            sc.exitScope();
     
-            // Connect children (unchanged)
+            // Connect children 
             for (TreeNode node : nodeMap.values()) {
                 connectChildren(node, doc);
             }
-    
-            // Print the result (unchanged)
-            // for (TreeNode node : nodeMap.values()) {
-            //     System.out.println(node);
-            // }
-
-            sc.printEntireScope();
     
         } catch (Exception e) {
             e.printStackTrace();
@@ -144,11 +100,35 @@ public class ScopeAnalyzer {
         String value = element.getElementsByTagName("TERMINAL").item(0).getTextContent();
         String termType = getTerminalType(value);
 
-        System.out.println(String.format("PROCESSING LEAF %s - %s", unid, value));
+        // System.out.println(String.format("PROCESSING LEAF %s - %s", unid, value));
     
         // Add terminal (symbol) to the current scope
         String symbolName = "UNID_" + unid;  // Assuming the terminal can be uniquely identified by UNID
-        sc.addSymbol(symbolName, value, termType);
+        
+
+        //Check symbols first with lookup
+        //  If not found
+            //  If declaration
+                //  Add declaration
+            //  Else If not declaration
+                //  Throw error     -- No declaration found for var/function
+        //  If found
+            //  If declaration
+                //  Throw error     -- Cannot have duplicate declarations
+            //  Else If not declaration
+                //  Change symbol in table
+
+                
+        if (value.equals("begin") || value.equals("{")) {
+            sc.enterScope();
+        } 
+        else if (value.equals("end") || value.equals("}")) {
+            sc.exitScope();
+        }
+        else {
+            sc.addSymbol(symbolName, value, termType);
+        }
+        
 
         // Store node as a terminal
         TreeNode node = new TreeNode(unid, value);

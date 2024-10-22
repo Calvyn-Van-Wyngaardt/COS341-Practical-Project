@@ -1,29 +1,41 @@
 import java.util.*;
 
 class ScopeChecker {
-    private Stack<SymbolTable> stack = new Stack<Symboltable>();
-    private Stack<SymbolTable> sortedStack = new Stack<>();
+    private Stack<ScopeEntry> scope = new Stack<>();                //Final Data structure used for Type checking
+    private Stack<SymbolTable> tempStack = new Stack<>();           //Temp Data structure used to iterate through program
     private static Integer stackNumber = 0;
     
     public void enterScope() {
-        stack.push(new SymbolTable());
+        tempStack.push(new SymbolTable());
+        //Add statement for final DS
     }
 
     public void exitScope() {
-        if (!stack.isEmpty()) {
-            stack.pop();
+        //Before exiting scope... Print that SymbolTable...
+        SymbolTable currTable = tempStack.peek();
+        System.out.println(currTable);
+
+        if (!tempStack.isEmpty()) {
+            tempStack.pop();
+            //Add statement for final DS
         }
     }
 
     public void addSymbol(String name, String value, String type) {
-        if (!stack.isEmpty()) {
-            stack.peek().addSymbol(name, value, type);
+        if (!tempStack.isEmpty()) {
+            SymbolTable newTable = tempStack.pop();
+            newTable.addSymbol(name, value, type);
+            tempStack.push(newTable);
+            //Add statement for final DS
         }
     }
 
     public String lookupSymbol(String name) {
-        for (SymbolTable table : stack) {
-            String type = table.lookup(name);
+        //Add statement for final DS ?
+
+        for (int i = tempStack.size(); i > 0; i--) {
+            SymbolTable curr = tempStack.get(i);
+            String type = curr.lookup(name);
             if (type != null) {
                 return type;
             }
@@ -32,20 +44,8 @@ class ScopeChecker {
     }
 
     public void printCurrentScope() {
-        if (!stack.isEmpty()) {
-            System.out.println("Current Scope Symbol Table: " + stack.peek());
+        if (!scope.isEmpty()) {
+            System.out.println("Current Scope Symbol Table: " + scope.peek());
         }
-    }
-
-    public String printEntireScope() {
-        int scopeNumber = 0;
-        String out = "";
-        System.out.println("PRINTINGGGG");
-        Deque<SymbolTable> t = new ArrayDeque<>(stack);
-        for (int i = t.size(); i < 0; i++) {
-            SymbolTable curr = t.pop();
-            out = String.format("%s - %s",scopeNumber++, curr.toString()) + out;
-        }
-        return out;
     }
 }

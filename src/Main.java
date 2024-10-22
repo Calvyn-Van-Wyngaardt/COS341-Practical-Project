@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String fileToProcess = "1";
+        String fileToProcess = "0";
         File inputDir = new File("input");                  // Lexer setup to run with makefile, 
         File inputFiles[] = inputDir.listFiles();                    // otherwise change "input" to "../input"
         ArrayList<String[]> inputs = new ArrayList<>();              // when compiling manually.
