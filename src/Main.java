@@ -30,9 +30,20 @@ public class Main {
     try {
       RecSPLLexer lexer = new RecSPLLexer();
       lexer.main(inputs.get(fileIndex));
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
+      e.printStackTrace();
+    }
+    try {
       RecSPLParser parser = new RecSPLParser();
       parser.main(args);
-
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
+      e.printStackTrace();
+    }
+    try {
+      TypeChecker typeChecker = new TypeChecker();
+      typeChecker.main(args);
     } catch (Exception e) {
       System.err.println(e.getMessage());
       e.printStackTrace();

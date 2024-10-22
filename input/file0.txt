@@ -1,4 +1,6 @@
 main
-begin
-end
+    num V_x,
+    begin
+        V_x = 1;
+    end
 $
