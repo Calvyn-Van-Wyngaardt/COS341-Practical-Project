@@ -42,7 +42,7 @@ public class Main {
       e.printStackTrace();
     }
     try {
-      TypeChecker typeChecker = new TypeChecker();
+      RecSPLTypeChecker typeChecker = new RecSPLTypeChecker();
       typeChecker.main(args);
     } catch (Exception e) {
       System.err.println(e.getMessage());

@@ -1,5 +1,5 @@
 main
-    num V_x, text V_y, num V_z, text V_a, num V_b, text V_c, num V_d, num V_e,
+    num V_x, text V_y, num V_z, num V_a, num V_b, text V_c, num V_d, num V_e,
     begin
         skip;
         V_x = 1;
@@ -9,6 +9,7 @@ main
         V_a = "Hello";
         V_b = add(V_x, 2);
         V_z = F_compute(V_b, V_x, V_d);
+        F_update(V_p1, V_p2, V_p3);
         V_d = sqrt(V_b);
         V_e = add(mul(V_x, 2), sub(V_z, V_b));
         if and(eq(V_z, 5), grt(V_b, V_x)) then
@@ -39,7 +40,7 @@ main
 
 num F_compute(V_p1, V_p2, V_p3)
 {
-    num V_l1, num V_l2, num V_l3,
+    num V_, num V_l2, num V_l3,
     begin
         V_l1 = mul(V_p1, V_p2);
         V_l2 = add(V_l1, V_p3);

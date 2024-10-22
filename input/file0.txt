@@ -1,6 +1,14 @@
 main
-    num V_x,
-    begin
-        V_x = 1;
-    end
+num V_age ,
+begin
+V_age < input ;
+if grt( V_age , "Hello" ) then
+  begin
+  print "Adult" ;
+  end
+else
+  begin
+  print "Minor" ;
+  end;
+end
 $
