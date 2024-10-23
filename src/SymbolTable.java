@@ -32,6 +32,11 @@ public class SymbolTable {
         return symbolTable.put(id++, newEntry);
     }
 
+    //TODO: Lookup - See if var/function has been declared
+    //TODO: Lookup - Variable reassignment
+    //TODO: Ensure that the final DS (LinkedList) is correct:
+        //TODO: Create a print function for the LinkedList
+
     public Map<Integer, TableEntry> checkSymbolTable() throws Error {
         int i = 0;
         Collection<TableEntry> entries = symbolTable.values();
