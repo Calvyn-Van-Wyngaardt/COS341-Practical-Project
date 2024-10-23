@@ -56,7 +56,13 @@ public class ScopeAnalyzer {
 
             //Print global SymbolTable
             sc.exitScope();
+
+            //Cleanup tables
+            sc.checkSymbolTables();
     
+            //Print tables
+            System.out.println(sc.printFinalTables());
+
             // Connect children 
             for (TreeNode node : nodeMap.values()) {
                 connectChildren(node, doc);
@@ -102,7 +108,6 @@ public class ScopeAnalyzer {
 
         // System.out.println(String.format("PROCESSING LEAF %s - %s", unid, value));
     
-        // Add terminal (symbol) to the current scope
         String symbolName = "UNID_" + unid;  // Assuming the terminal can be uniquely identified by UNID
         
 

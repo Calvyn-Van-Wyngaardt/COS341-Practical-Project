@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String fileToProcess = "0";
+        String fileToProcess = "3";
         File inputDir = new File("input");                  // Lexer setup to run with makefile, 
         File inputFiles[] = inputDir.listFiles();                    // otherwise change "input" to "../input"
         ArrayList<String[]> inputs = new ArrayList<>();              // when compiling manually.
@@ -15,7 +15,7 @@ public class Main {
         try {
             Lexer lexer = new Lexer(inputs.get(Integer.parseInt(fileToProcess)));
             System.out.println(lexer);
-            // Parser parser = new Parser("docs/SLR_Table.csv");
+            // Parser parser = nemaw Parser("docs/SLR_Table.csv");
 
             // Print results (for demonstration)
             // System.out.println("Action Map:");
