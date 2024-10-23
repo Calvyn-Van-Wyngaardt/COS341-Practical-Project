@@ -103,6 +103,8 @@ class ScopeChecker {
                     }
                 } 
                 //Var init
+                //TODO: Ensure you can't have 2 entries within same scope
+                //TODO: Ensure that the var actually changes in the correct scope
                 else if (value[0].matches(TOKEN_V)) {
                     boolean found = false;
                     boolean skip = false;
