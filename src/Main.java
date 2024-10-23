@@ -13,8 +13,8 @@ public class Main {
             inputs.add(readFile(inputFile));
         }
         try {
-            Lexer lexer = new Lexer(inputs.get(Integer.parseInt(fileToProcess)));
-            System.out.println(lexer);
+            // Lexer lexer = new Lexer(inputs.get(Integer.parseInt(fileToProcess)));
+            // System.out.println(lexer);
             // Parser parser = nemaw Parser("docs/SLR_Table.csv");
 
             // Print results (for demonstration)

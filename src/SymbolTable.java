@@ -22,7 +22,7 @@ public class SymbolTable {
     }
 
     public TableEntry addSymbol(String name, String value, String type) {
-        TableEntry newEntry = new TableEntry(name, value, type);
+        TableEntry newEntry = new TableEntry(name, value, value, type);
         if (value.matches(TOKEN_V)) {
             newEntry.setInternalName(renameVar());
         } else if (value.matches(TOKEN_F)) {
@@ -30,6 +30,10 @@ public class SymbolTable {
         }
 
         return symbolTable.put(id++, newEntry);
+    }
+
+    public void setEntry(Integer id, TableEntry value) {
+        symbolTable.replace(id, value);
     }
 
     //TODO: Lookup - See if var/function has been declared
@@ -50,10 +54,12 @@ public class SymbolTable {
         for (i = 0; i < entriesArray.length; i++) {
             TableEntry newEntry = entriesArray[i];
             System.out.println("CURRENT ENTRY: " + entriesArray[i].getValue());
+
+            //Declarations...
             if ((i+1) < entriesArray.length && entriesArray[i].getValue().equals("void")) {
                 if (entriesArray[i+1].getValue().matches(TOKEN_F)) {
                     //Merge
-                    newEntry = new TableEntry(entriesArray[i+1].getName(), String.format("%s %s", entriesArray[i].getValue(), entriesArray[i+1].getValue()) , "function declaration");
+                    newEntry = new TableEntry(entriesArray[i+1].getId(), String.format("%s %s", entriesArray[i].getRepresentation(), entriesArray[i+1].getRepresentation()), entriesArray[i+1].getValue(), "function declaration");
                     newEntry.setInternalName(entriesArray[i+1].getInternalName());
                     i++;
                 } else {
@@ -64,17 +70,23 @@ public class SymbolTable {
                 if (i+1 < symbolTable.size()) {
                     if (entriesArray[i+1].getValue().matches(TOKEN_V)) {
                         //Merge
-                        newEntry = new TableEntry(entriesArray[i+1].getName(), String.format("%s %s", entriesArray[i].getValue(), entriesArray[i+1].getValue()), "variable declaration");
+                        newEntry = new TableEntry(entriesArray[i+1].getId(), String.format("%s %s", entriesArray[i].getRepresentation(), entriesArray[i+1].getRepresentation()), entriesArray[i+1].getValue(),"variable declaration");
                         newEntry.setInternalName(entriesArray[i+1].getInternalName());
                         i++;
                     } 
+                    else if (entriesArray[i].getValue().matches(TOKEN_V)) {
+                        //Modify value of variable...
+                        
+                    }
                 } else {
-                    throw new Error(String.format("ERROR: Symbol Table cannot have empty %s declaration...", entriesArray[i].getName()));
+                    throw new Error(String.format("ERROR: Symbol Table cannot have empty %s declaration...", entriesArray[i].getRepresentation()));
                 }
-            }
+            } 
             // else {
-            //     throw new Error(String.format("ERROR: Dangling %s without Function/variable name", entriesArray[i].getName()));
+            //     throw new Error(String.format("ERROR: Dangling %s without Function/variable name", entriesArray[i].getRepresentation()));
             // }
+            
+
 
             newTable.put(i, newEntry);
         }
@@ -82,30 +94,30 @@ public class SymbolTable {
         return newTable;
     }
 
-    public void modifyEntry(String oldName, String newValue, ScopeChecker scopeChecker) {
-        Stack<SymbolTable> tempStack = scopeChecker.getTempStack();
+    // public void modifyEntry(String oldName, String newValue, ScopeChecker scopeChecker) {
+    //     Stack<SymbolTable> tempStack = scopeChecker.getTempStack();
         
-        // Traverse the stack from the top (most recent scope) to the bottom
-        for (int i = tempStack.size() - 1; i >= 0; i--) {
-            SymbolTable currentScope = tempStack.get(i);
-            for (TableEntry entry : currentScope.symbolTable.values()) {
-                if (entry.getName().equals(oldName)) {
-                    entry.setValue(newValue);  // Modify the existing value
-                    return;  // Exit after modifying
-                }
-            }
-        }
-        System.out.println("No entry found for modification");
-    }
+    //     // Traverse the stack from the top (most recent scope) to the bottom
+    //     for (int i = tempStack.size() - 1; i >= 0; i--) {
+    //         SymbolTable currentScope = tempStack.get(i);
+    //         for (TableEntry entry : currentScope.symbolTable.values()) {
+    //             if (entry.getId().equals(oldName)) {
+    //                 entry.setValue(newValue);  // Modify the existing value
+    //                 return;  // Exit after modifying
+    //             }
+    //         }
+    //     }
+    //     System.out.println("No entry found for modification");
+    // }
 
     public Map<Integer, TableEntry> getSymbolTable() {
         return symbolTable;
     }
 
-    public String lookup(String name) {
-        //to be implemented
-        return "Hi";
-    }
+    // public String lookup(String name) {
+    //     //to be implemented
+    //     return "Hi";
+    // }
 
     //Variables don't need to follow the grammer rules as this is internal renaming
     public String renameVar() {
@@ -131,14 +143,16 @@ public class SymbolTable {
 }
 
 class TableEntry {
-    private final String oldName;
+    private final String id;
     private String value;
+    private String representation;
     private final String type;
     private String internalName;
 
-    public TableEntry(String name, String value, String type) {
-        this.oldName = name;
+    public TableEntry(String id, String representation, String value, String type) {
+        this.id = id;
         this.value = value;
+        this.representation = representation;
         this.type = type;
     }
 
@@ -150,12 +164,20 @@ class TableEntry {
         this.value = value;
     }
 
+    public void setRepresentation(String rep) {
+        this.representation = rep;
+    }
+
     public String getType() {
         return type;
     }
 
-    public String getName() {
-        return oldName;
+    public String getId() {
+        return id;
+    }
+
+    public String getRepresentation() {
+        return representation;
     }
 
     public String getInternalName() {
@@ -168,7 +190,7 @@ class TableEntry {
 
     @Override
     public String toString() {
-        return String.format("\t%s\t%s\t%s\t%s", oldName, internalName, value, type);
+        return String.format("\t%14s %14s %18s %25s %14s", id, representation, value, type, internalName);
     }
 }
 

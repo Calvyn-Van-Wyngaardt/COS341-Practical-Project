@@ -59,7 +59,10 @@ public class ScopeAnalyzer {
 
             //Cleanup tables
             sc.checkSymbolTables();
-    
+
+            //Do lookups for var/function init/declaration
+            System.out.println(sc.lookups());
+
             //Print tables
             System.out.println(sc.printFinalTables());
 
