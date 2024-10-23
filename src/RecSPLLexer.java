@@ -127,6 +127,7 @@ public class RecSPLLexer {
         throw new LexicalException("Unrecognized token: " + token);
       }
     }
+    addTokenToXML("reserved_keyword", "$");
   }
 
   private static void addTokenToXML(String tokenClass, String word) {
