@@ -1,14 +1,19 @@
 main
-num V_age ,
+num V_number,
+
 begin
-V_age < input ;
-if grt( V_age , "Hello" ) then
-  begin
-  print "Adult" ;
-  end
-else
-  begin
-  print "Minor" ;
-  end;
+V_number = add(0.03 , 2 );
+end
+num F_test(V_first, V_second, V_third){
+text V_t1,
+text V_t2,
+text V_t3,
+
+begin
+
+end
+
+}
+
 end
 $

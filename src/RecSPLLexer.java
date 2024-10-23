@@ -31,7 +31,7 @@ public class RecSPLLexer {
   private static Element rootElement;
 
   public static void main(String[] fileContent)
-      throws ParserConfigurationException {
+      throws ParserConfigurationException, LexicalException {
     try {
       // Initialize XML document
       initializeXML();
@@ -55,9 +55,10 @@ public class RecSPLLexer {
       // Write the XML output
       writeXML(OUTPUT_FILE_PATH);
     } catch (ParserConfigurationException e) {
-      System.err.println("Error initializing XML parser: " + e.getMessage());
+      throw new ParserConfigurationException("Error initializing XML parser: " +
+                                             e.getMessage());
     } catch (LexicalException e) {
-      System.err.println("Lexical error: " + e.getMessage());
+      throw new LexicalException("Lexical error: " + e.getMessage());
     }
   }
 

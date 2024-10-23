@@ -33,6 +33,7 @@ public class Main {
     } catch (Exception e) {
       System.err.println(e.getMessage());
       e.printStackTrace();
+      return;
     }
     try {
       RecSPLParser parser = new RecSPLParser();
@@ -40,14 +41,24 @@ public class Main {
     } catch (Exception e) {
       System.err.println(e.getMessage());
       e.printStackTrace();
+      return;
     }
-    try {
-      RecSPLTypeChecker typeChecker = new RecSPLTypeChecker();
-      typeChecker.main(args);
+    try{
+      RecSPLSymbolTable symbolTable = new RecSPLSymbolTable();
+      symbolTable.main(args);
     } catch (Exception e) {
       System.err.println(e.getMessage());
       e.printStackTrace();
+      return;
     }
+    // try {
+    //   RecSPLTypeChecker typeChecker = new RecSPLTypeChecker();
+    //   typeChecker.main(args);
+    // } catch (Exception e) {
+    //   System.err.println(e.getMessage());
+    //   e.printStackTrace();
+    //   return;
+    // }
   }
 
   private static String[] readFile(File inputFile) {

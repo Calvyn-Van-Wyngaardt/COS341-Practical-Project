@@ -9,6 +9,7 @@ main
         V_a = "Hello";
         V_b = add(V_x, 2);
         V_z = F_compute(V_b, V_x, V_d);
+        V_l1 = 1;
         F_update(V_p1, V_p2, V_p3);
         V_d = sqrt(V_b);
         V_e = add(mul(V_x, 2), sub(V_z, V_b));
@@ -40,9 +41,9 @@ main
 
 num F_compute(V_p1, V_p2, V_p3)
 {
-    num V_, num V_l2, num V_l3,
+    num V_l1, num V_l2, num V_l3,
     begin
-        V_l1 = mul(V_p1, V_p2);
+        V_a = mul(V_p1, V_p2);
         V_l2 = add(V_l1, V_p3);
         print V_l2;
         V_l3 < input;
@@ -62,9 +63,10 @@ void F_update(V_p1, V_p2, V_p3)
         V_y = V_l2;
     end
 }
+
 num F_sub(V_s1, V_s2, V_s3)
     {
-        num V_sx, num V_sy, num V_sz,
+        num V_sx, num V_sy, num V_a,
         begin
             V_sx = sub(V_s1, V_s2);
             V_sy = mul(V_sx, V_s3);

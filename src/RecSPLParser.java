@@ -17,14 +17,14 @@ public class RecSPLParser {
   private static List<InnerNode> innerNodes = new ArrayList<>();
   private static List<LeafNode> leafNodes = new ArrayList<>();
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     try {
       parseTable = SLRParseTable.initializeParseTable();
       readTokens();
       parse();
     } catch (Exception e) {
-      System.err.println("Error: " + e.getMessage());
       e.printStackTrace();
+      throw new Exception("Error: " + e.getMessage());
     }
   }
 
