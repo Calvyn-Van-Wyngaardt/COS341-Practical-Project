@@ -8,39 +8,34 @@ public class TypeChecker {
 
   public static void main(String[] args) {
     try {
-      // Parse the XML syntax tree
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document doc = builder.parse("parserOutput.xml");
+      Document doc = builder.parse("output/parserOutput.xml");
       NodeList rootNodes = doc.getElementsByTagName("ROOT");
 
       if (rootNodes.getLength() == 0) {
-        System.err.println("No ROOT element found in the XML.");
+        System.err.println("No ROOT element found in the XML");
         return;
       }
 
       Node xmlRoot = rootNodes.item(0);
 
-      // Build the syntax tree
       SyntaxTreeNode syntaxTreeRoot =
           SyntaxTreeBuilder.buildSyntaxTree(xmlRoot);
 
-      // Initialize the symbol table
-      RecSPLSymbolTable symbolTable = new RecSPLSymbolTable();
+      NewSymbolTable symbolTable = new NewSymbolTable();
 
-      // Perform type checking
       if (syntaxTreeRoot == null) {
-        System.err.println("Failed to build syntax tree.");
+        System.err.println("Failed to build syntax tree");
         return;
       }
 
       boolean typeCheckResult = syntaxTreeRoot.typeCheck(symbolTable);
 
-
       if (typeCheckResult) {
-        System.out.println("Type checking passed.");
+        System.out.println("Type checking completed successfully");
       } else {
-        System.out.println("Type checking failed.");
+        System.out.println("Type checking failed");
       }
     } catch (Exception e) {
       e.printStackTrace();

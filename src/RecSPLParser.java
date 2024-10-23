@@ -7,8 +7,8 @@ import javax.xml.transform.stream.*;
 import org.w3c.dom.*;
 
 public class RecSPLParser {
-  private static final String INPUT_FILE = "output/lexerOutput.xml";
-  private static final String OUTPUT_FILE = "output/parserOutput.xml";
+  private static final String INPUT_FILE = "./output/lexerOutput.xml";
+  private static final String OUTPUT_FILE = "./output/parserOutput.xml";
   private static Map<String, Map<String, String>> parseTable;
   private static Stack<Object> stack = new Stack<>();
   private static List<Token> tokens = new ArrayList<>();

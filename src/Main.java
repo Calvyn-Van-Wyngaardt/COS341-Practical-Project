@@ -6,10 +6,9 @@ import java.util.Scanner;
 @SuppressWarnings("all")
 public class Main {
   public static void main(String[] args) {
-    File inputDir = new File("input"); // Lexer setup to run with makefile,
-    File inputFiles[] =
-        inputDir.listFiles(); // otherwise change "input" to "../input"
-    ArrayList<String[]> inputs = new ArrayList<>(); // when compiling manually.
+    File inputDir = new File("input");
+    File inputFiles[] = inputDir.listFiles();
+    ArrayList<String[]> inputs = new ArrayList<>();
 
     for (File inputFile : inputFiles) {
       inputs.add(readFile(inputFile));
@@ -27,6 +26,7 @@ public class Main {
     int fileIndex = scanner.nextInt();
     scanner.close();
 
+    System.out.println("========== Lexer ==========");
     try {
       RecSPLLexer lexer = new RecSPLLexer();
       lexer.main(inputs.get(fileIndex));
@@ -35,6 +35,8 @@ public class Main {
       e.printStackTrace();
       return;
     }
+
+    System.out.println("========== Parser ==========");
     try {
       RecSPLParser parser = new RecSPLParser();
       parser.main(args);
@@ -43,22 +45,27 @@ public class Main {
       e.printStackTrace();
       return;
     }
-    try{
-      RecSPLSymbolTable symbolTable = new RecSPLSymbolTable();
-      symbolTable.main(args);
-    } catch (Exception e) {
-      System.err.println(e.getMessage());
-      e.printStackTrace();
-      return;
-    }
+
+    // System.out.println("========== Symbol Table ==========");
     // try {
-    //   RecSPLTypeChecker typeChecker = new RecSPLTypeChecker();
-    //   typeChecker.main(args);
+    //   RecSPLSymbolTable symbolTable = new RecSPLSymbolTable();
+    //   symbolTable.main(args);
     // } catch (Exception e) {
     //   System.err.println(e.getMessage());
     //   e.printStackTrace();
     //   return;
     // }
+    System.out.println("========== Type Checker ==========");
+    try {
+      TypeChecker typeChecker = new TypeChecker();
+      typeChecker.main(args);
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
+      e.printStackTrace();
+      return;
+    }
+
+    System.out.println("Program completed successfully");
   }
 
   private static String[] readFile(File inputFile) {

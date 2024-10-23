@@ -76,4 +76,3 @@ num F_sub(V_s1, V_s2, V_s3)
     }
     end
 end
-$

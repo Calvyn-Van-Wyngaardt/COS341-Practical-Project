@@ -33,26 +33,21 @@ public class RecSPLLexer {
   public static void main(String[] fileContent)
       throws ParserConfigurationException, LexicalException {
     try {
-      // Initialize XML document
       initializeXML();
 
-      // Convert file content array to a single string
       StringBuilder inputBuilder = new StringBuilder();
       for (String line : fileContent) {
         inputBuilder.append(line).append(" ");
       }
 
-      // Check if the input starts with the required grammar structure
       String input = inputBuilder.toString().trim();
       if (!input.startsWith("main")) {
         throw new LexicalException(
             "Input does not start with 'main' as required by the grammar.");
       }
 
-      // Tokenize the input
       tokenize(input);
 
-      // Write the XML output
       writeXML(OUTPUT_FILE_PATH);
     } catch (ParserConfigurationException e) {
       throw new ParserConfigurationException("Error initializing XML parser: " +
@@ -90,7 +85,7 @@ public class RecSPLLexer {
           currentToken = new StringBuilder();
         }
         tokens.add("< input");
-        i += 6; // Skip the rest of "< input"
+        i += 6;
       } else if (Character.isWhitespace(c) || "()<>;,".indexOf(c) != -1) {
         if (currentToken.length() > 0) {
           tokens.add(currentToken.toString());
@@ -156,6 +151,7 @@ public class RecSPLLexer {
       DOMSource source = new DOMSource(xmlDocument);
       StreamResult result = new StreamResult(new File(outputFilePath));
       transformer.transform(source, result);
+      System.out.println("Lexing completed successfully");
       System.out.println("XML output written to " + outputFilePath);
     } catch (Exception e) {
       System.err.println("Error writing the XML file: " + e.getMessage());
