@@ -15,22 +15,16 @@ class ScopeChecker {
         scope.add(newEntry);
         
         if (scope.size() > 1) {
-            // if (scope.peek().getSymbolTable().getSymbolTable().isEmpty()) {
-            //     scope.pop();
-            //     stackNumber -= 2;
-            // } else {
-                ScopeEntry prev = scope.get(stackNumber-1);
-                
-                //Set previous next
-                prev.setNext(newEntry);
-                //Set current prev
-                newEntry.setPrev(prev);
-                newEntry.setNext(null);
-                
-                scope.set(stackNumber-1, prev);
-                scope.set(stackNumber, newEntry);
-            // }
-
+            ScopeEntry prev = scope.get(stackNumber-1);
+            
+            //Set previous next
+            prev.setNext(newEntry);
+            //Set current prev
+            newEntry.setPrev(prev);
+            newEntry.setNext(null);
+            
+            scope.set(stackNumber-1, prev);
+            scope.set(stackNumber, newEntry);
         }
 
         stackNumber++;
@@ -62,13 +56,15 @@ class ScopeChecker {
         }
     }
 
+
+    //Do the V_abc input remapping...
     public void checkSymbolTables() {
         for (ScopeEntry s : scope) {
             s.checkSymbolTable();
         }
     }
 
-    public boolean lookups() throws Error{
+    public boolean lookups() throws Error {
         LinkedList<ScopeEntry> tempScope = new LinkedList<ScopeEntry>(scope);
         for (int i = 0; i < tempScope.size(); i++) {
             ScopeEntry currScope = tempScope.get(i);
@@ -83,7 +79,7 @@ class ScopeChecker {
 
                         for (int k = i; k > 0; k--) {
                             ScopeEntry curr = scope.get(k);
-                            if (curr.isExisting()&& !curr.getSymbolTable().getSymbolTable().isEmpty()) {
+                            if (!curr.isExisting() && !curr.getSymbolTable().getSymbolTable().isEmpty()) {
                                 Collection<TableEntry> tableEntries = curr.getSymbolTable().getSymbolTable().values();
                                 TableEntry entriesArray[] = new TableEntry[tableEntries.size()];
     
@@ -91,10 +87,15 @@ class ScopeChecker {
                                 for (TableEntry t1 : tableEntries) {
                                     entriesArray[z++] = t1;
                                 }
-    
+                                
+                                int varCount = 0;
                                 for (TableEntry ea : entriesArray) {
                                     if (ea.getRepresentation().contains(value[0]) && ea.getRepresentation().contains(value[1])) {
-                                        throw new Error(String.format("ERROR: Duplicate declaration found for %s",value[1]));
+                                        if (varCount > 1) {
+                                            throw new Error(String.format("ERROR: Duplicate declaration found for %s",value[1]));
+                                        } else {
+                                            varCount++;
+                                        }
                                     }
                                 }
                             }
@@ -108,7 +109,7 @@ class ScopeChecker {
                     for (int k = i; k > 0; k--) {
                         skip = false;
                         ScopeEntry curr = scope.get(k);
-                        if (curr.isExisting() && !curr.getSymbolTable().getSymbolTable().isEmpty()) {
+                        if (!curr.isExisting() && !curr.getSymbolTable().getSymbolTable().isEmpty()) {
                             Collection<TableEntry> tableEntries = curr.getSymbolTable().getSymbolTable().values();
                             TableEntry entriesArray[] = new TableEntry[tableEntries.size()];
     
@@ -122,6 +123,7 @@ class ScopeChecker {
                                 for (String s : rep) {
                                     System.out.println(s);
                                 }
+
                                 //Found the variable declaration, change the value...
                                 if (rep.length > 1) {
                                     //Needs to be modified...

@@ -82,7 +82,11 @@ public class ScopeAnalyzer {
         
         //Not dealing with ROOT
         if (!unid.equals("1")) {
-            String parent = element.getElementsByTagName("PARENT").item(0).getTextContent();  // Get parent node ID
+            Node parent = element.getElementsByTagName("PARENT").item(0);
+            String parentString = "";
+            if (parent != null) {
+                parentString = parent.getTextContent();  // Get parent node ID
+            }
     
             // Scope transition handling
             if (currentScopeParent == null || !currentScopeParent.equals(parent)) {
@@ -91,7 +95,7 @@ public class ScopeAnalyzer {
                     System.out.println("Exited scope of parent " + currentScopeParent);
                 }
                 sc.enterScope();  // Enter new scope
-                currentScopeParent = parent;  // Update the current parent
+                currentScopeParent = parentString;  // Update the current parent
                 System.out.println("Entered new scope of parent " + currentScopeParent);
             }
         }
@@ -109,23 +113,9 @@ public class ScopeAnalyzer {
         String value = element.getElementsByTagName("TERMINAL").item(0).getTextContent();
         String termType = getTerminalType(value);
 
-        // System.out.println(String.format("PROCESSING LEAF %s - %s", unid, value));
+        System.out.println(String.format("PROCESSING LEAF %s - %s", unid, value));
     
         String symbolName = "UNID_" + unid;  // Assuming the terminal can be uniquely identified by UNID
-        
-
-        //Check symbols first with lookup
-        //  If not found
-            //  If declaration
-                //  Add declaration
-            //  Else If not declaration
-                //  Throw error     -- No declaration found for var/function
-        //  If found
-            //  If declaration
-                //  Throw error     -- Cannot have duplicate declarations
-            //  Else If not declaration
-                //  Change symbol in table
-
                 
         if (value.equals("begin") || value.equals("{")) {
             sc.enterScope();

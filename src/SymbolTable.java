@@ -36,10 +36,9 @@ public class SymbolTable {
         symbolTable.replace(id, value);
     }
 
-    //TODO: Lookup - See if var/function has been declared
+    //TODO: Lookup - See if function has been declared (check duplicates)
     //TODO: Lookup - Variable reassignment
     //TODO: Ensure that the final DS (LinkedList) is correct:
-        //TODO: Create a print function for the LinkedList
 
     public Map<Integer, TableEntry> checkSymbolTable() throws Error {
         int i = 0;
@@ -59,7 +58,7 @@ public class SymbolTable {
             if ((i+1) < entriesArray.length && entriesArray[i].getValue().equals("void")) {
                 if (entriesArray[i+1].getValue().matches(TOKEN_F)) {
                     //Merge
-                    newEntry = new TableEntry(entriesArray[i+1].getId(), String.format("%s %s", entriesArray[i].getRepresentation(), entriesArray[i+1].getRepresentation()), entriesArray[i+1].getValue(), "function declaration");
+                    newEntry = new TableEntry(entriesArray[i+1].getId(), String.format("%s %s", entriesArray[i].getRepresentation(), entriesArray[i+1].getRepresentation()), entriesArray[i+1].getValue(), "function_declaration");
                     newEntry.setInternalName(entriesArray[i+1].getInternalName());
                     i++;
                 } else {
@@ -70,18 +69,30 @@ public class SymbolTable {
                 if (i+1 < symbolTable.size()) {
                     if (entriesArray[i+1].getValue().matches(TOKEN_V)) {
                         //Merge
-                        newEntry = new TableEntry(entriesArray[i+1].getId(), String.format("%s %s", entriesArray[i].getRepresentation(), entriesArray[i+1].getRepresentation()), entriesArray[i+1].getValue(),"variable declaration");
+                        newEntry = new TableEntry(entriesArray[i+1].getId(), String.format("%s %s", entriesArray[i].getRepresentation(), entriesArray[i+1].getRepresentation()), entriesArray[i+1].getValue(),"variable_declaration");
                         newEntry.setInternalName(entriesArray[i+1].getInternalName());
                         i++;
                     } 
-                    else if (entriesArray[i].getValue().matches(TOKEN_V)) {
-                        //Modify value of variable...
-                        
-                    }
                 } else {
                     throw new Error(String.format("ERROR: Symbol Table cannot have empty %s declaration...", entriesArray[i].getRepresentation()));
                 }
-            } 
+            } else if ((i+1) < entriesArray.length && entriesArray[i].getValue().matches(TOKEN_V) && entriesArray[i+1].getValue().equals("input")) {
+                newEntry = new TableEntry(entriesArray[i+1].getId(), String.format("%s %s", entriesArray[i].getRepresentation(), entriesArray[i].getRepresentation()), entriesArray[i+1].getValue(), "user_input");
+                newEntry.setInternalName(entriesArray[i].getInternalName());
+                i++;
+            } else if ((i+2) < symbolTable.size() && entriesArray[i].getValue().matches(TOKEN_V) && entriesArray[i+1].getValue().equals("=")) {
+                //Modify value of variable...
+                String type = "";
+                if (entriesArray[i+2].getValue().matches(TOKEN_T)) {
+                    type = "text";
+                } else if (entriesArray[i+2].getValue().matches(TOKEN_N)) {
+                    type = "num";
+                }
+
+                newEntry = new TableEntry(entriesArray[i].getId(), entriesArray[i].getValue(), entriesArray[i+2].getValue(), type);
+                newEntry.setInternalName(entriesArray[i].getInternalName());
+                i += 2;    
+            }
             // else {
             //     throw new Error(String.format("ERROR: Dangling %s without Function/variable name", entriesArray[i].getRepresentation()));
             // }
@@ -94,30 +105,9 @@ public class SymbolTable {
         return newTable;
     }
 
-    // public void modifyEntry(String oldName, String newValue, ScopeChecker scopeChecker) {
-    //     Stack<SymbolTable> tempStack = scopeChecker.getTempStack();
-        
-    //     // Traverse the stack from the top (most recent scope) to the bottom
-    //     for (int i = tempStack.size() - 1; i >= 0; i--) {
-    //         SymbolTable currentScope = tempStack.get(i);
-    //         for (TableEntry entry : currentScope.symbolTable.values()) {
-    //             if (entry.getId().equals(oldName)) {
-    //                 entry.setValue(newValue);  // Modify the existing value
-    //                 return;  // Exit after modifying
-    //             }
-    //         }
-    //     }
-    //     System.out.println("No entry found for modification");
-    // }
-
     public Map<Integer, TableEntry> getSymbolTable() {
         return symbolTable;
     }
-
-    // public String lookup(String name) {
-    //     //to be implemented
-    //     return "Hi";
-    // }
 
     //Variables don't need to follow the grammer rules as this is internal renaming
     public String renameVar() {
@@ -193,36 +183,3 @@ class TableEntry {
         return String.format("\t%14s %14s %18s %25s %14s", id, representation, value, type, internalName);
     }
 }
-
-
-// TableEntry lastEntry = symbolTable.get(symbolTable.size());
-//         if (lastEntry != null) {
-//             String lastEntryName = lastEntry.getName();
-//             String lastEntryValue = lastEntry.getValue();
-
-//             //Merge entries into one
-//             if (name.matches(TOKEN_V)) {
-//                 //Declaration
-//                 if (lastEntryName.equals("num") || lastEntryName.equals("text")) {
-//                     symbolTable.remove(symbolTable.size() - 1);
-//                     TableEntry mergedEntry = new TableEntry(name, lastEntryValue, lastEntryName);
-//                     mergedEntry.setInternalName(renameVar());
-//                     symbolTable.put(id, mergedEntry);
-//                 }
-//                 //Change the value...
-//                 else {
-                    
-//                 }
-//             } else if (name.matches(TOKEN_F)) {
-//                 if (lastEntryName.equals("void") || lastEntryName.equals("text") || lastEntryName.equals("num")) {
-
-//                 }           
-//             }
-    
-//             for (TableEntry entry : symbolTable.values()) {
-//                 if (entry.getName().equals(name)) {
-//                     return entry.getValue();
-//                 }
-//             }
-//         }
-//         return null;

@@ -11,11 +11,15 @@ num V_temp , num V_one , num V_return ,
 begin
 V_one = 1 ;
 if eq( V_n , V_one ) then
-  return V_one ;
+  begin
+    return V_one ;
+  end
 else
-  V_temp = sub( V_n , V_one ) ;
-  V_return = mul( V_n , F_factorial( V_temp , 0 , 0 ) ) ;
-  return V_return ;
+  begin
+    V_temp = sub( V_n , V_one ) ;
+    V_return = mul( V_n , F_factorial( V_temp , 0 , 0 ) ) ;
+    return V_return ;
+  end
 end
 end
 }
