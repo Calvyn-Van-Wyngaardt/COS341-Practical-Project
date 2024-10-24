@@ -11,6 +11,7 @@ num V_temp , num V_one , num V_return ,
 begin
 V_one = 1 ;
 if eq( V_n , V_one ) then
+  num V_temp
   begin
     return V_one ;
   end
